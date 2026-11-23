@@ -1,8 +1,8 @@
 
 import './App.css'
-import AddMenu from './components/AddMenu'
-import Header from './components/Header'
-import MenuCard from './components/MenuCard'
+import AddMenu from './Components/AddMenu'
+import Header from './Components/Header'
+import MenuCard from './Components/MenuCard'
 import { initialMenus } from './data'
 import { useState } from 'react'
 function App() {
