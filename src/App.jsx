@@ -4,10 +4,14 @@ import AddMenu from './Components/AddMenu'
 import Header from './Components/Header'
 import MenuCard from './Components/MenuCard'
 import { initialMenus } from './data'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
+function loadMenus() {
+  const saved = localStorage.getItem('exercise-menus')
+  return saved? JSON.parse(saved) : initialMenus
+}
 function App() {
 
-  const [menus, setMenus]=useState(initialMenus)
+  const [menus, setMenus]=useState(loadMenus)
 
   const handleVote = (id) => {
     setMenus(menus.map((m) =>
@@ -30,6 +34,14 @@ function App() {
 
   const totalVotes = menus.reduce((sum, m) => sum + m.votes, 0)
   const maxVotes = Math.max(...menus.map((m) => m.votes))
+
+  useEffect(()=>{
+    document.title=`${totalVotes}표 투표중`
+  },[totalVotes])
+  
+  useEffect(()=>{
+    localStorage.setItem('exercise-menus', JSON.stringify(menus))
+  },[menus])
 
   return (
     <div className='app'>
